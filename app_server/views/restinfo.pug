@@ -1,0 +1,104 @@
+doctype html
+head
+  title Food_Template Bootstrap Responsive Website Template | Checkout :: w3layouts
+  link(rel='stylesheet', href='/stylesheets/bootstraporder.css')
+  // jQuery (necessary for Bootstrap's JavaScript plugins)
+  script(src='/javascripts/jquery.min1.js')
+  // Custom Theme files
+  link(rel='stylesheet', href='/stylesheets/styleordercheck2.css')
+  // Custom Theme files
+  meta(name='viewport', content='width=device-width, initial-scale=1')
+  script(type='application/x-javascript').
+    addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); }
+  // webfont
+  link(href='//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900,200italic,300italic,400italic,600italic,700italic,900italic', rel='stylesheet', type='text/css')
+  link(href='//fonts.googleapis.com/css?family=Lobster+Two:400,400italic,700,700italic', rel='stylesheet', type='text/css')
+  // Animation
+  script(src='/javascripts/wow.min.js')
+  link(rel='stylesheet', href='/stylesheets/animateorder.css')
+
+header#mu-header
+  nav.navbar.navbar-default.mu-main-navbar(role='navigation')
+    .container
+      .navbar-header
+        // FOR MOBILE VIEW COLLAPSED BUTTON
+        button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#navbar', aria-expanded='false', aria-controls='navbar')
+          span.sr-only Toggle navigation
+          span.icon-bar
+          span.icon-bar
+          span.icon-bar
+        // LOGO
+        // Text based logo
+        a#size.navbar-brand(href='index.html')
+          img(src='/images/logo1.png')
+        a.navbar-brand(href='#home')
+          | FoodSet
+          span Go
+        // Image based logo
+        // <a class="navbar-brand" href="index.html"><img src="images/logo.png" alt="Logo img"></a>
+      #navbar.navbar-collapse.collapse
+        if user
+          ul#top-menu.nav.navbar-nav.navbar-right.mu-main-nav
+
+            li
+              a(href='/') HOME
+
+            li
+              a(href='/rest') RESTAURANT
+
+            li
+              a(href='/feedback/add') FEEDBACK
+
+            li
+              a(href='/logout') LOGOUT
+
+
+block content
+  br
+  br
+  br
+  br
+  br
+  br
+  -var index=0;
+  each entry in rests
+    h1=entry.name
+    .row
+      .col-xs-12.col-sm-6
+        p=entry.address
+        .panel.panel-primary
+          .panel-heading
+            h2.panel-title Facilities
+          .panel-body
+            each facility in rests
+              span.label.label-warning
+                span.glyphicon.glyphicon-ok
+                  p
+                  | &nbsp;#{facility.facilities}
+  
+      .row
+        .col-xs-12
+          .panel.panel-primary.review-panel
+            .panel-heading
+              a.btn.btn-default.pull-right(href="/feedback/read") view review
+              h2.panel-title Customer reviews
+            .panel-body.review-container
+              each review in rests
+                .row
+                  .review
+                    .well.well-sm.review-header
+                      span.reviewAuthor #{review.author}
+                      div
+                        - console.log(review.userId)
+                        - console.log(user)
+                      div
+                      if review.userId == user && review.userId != undefined
+                        a.btn(href="/rest/"+entry._id+"/review/"+review._id+"/edit") Edit
+                        a.btn(href="/rest/"+entry._id+"/review/"+review._id+"/delete") Delete
+                      small.reviewTimestamp #{review.timestamp}
+                    .col-xs-12
+                      //-p !{(review.reviewText).replace(/\n/g, '<br/>')}
+    .col-xs-12.col-md-3
+      
+  -index++;
+      //- p= sidebar.callToAction
